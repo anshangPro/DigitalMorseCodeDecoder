@@ -5,9 +5,7 @@ module mode_switch(
     output reg decoder_en,
     output reg encoder_en
 );
-    
-    assign decoder_en = sw;
-    assign encoder_en = ~sw;
+   
 
 decoder();
 encoder();
