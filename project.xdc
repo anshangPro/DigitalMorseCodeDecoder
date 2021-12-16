@@ -1,7 +1,7 @@
 set_property PACKAGE_PIN Y18 [get_ports {clk}]
 set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
 
-//seg_en 8bit    
+#seg_en 8bit    
 set_property PACKAGE_PIN C19 [get_ports {seg_en[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {seg_en[0]}]
 set_property PACKAGE_PIN E19 [get_ports {seg_en[1]}]
@@ -19,7 +19,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {seg_en[6]}]
 set_property PACKAGE_PIN A18 [get_ports {seg_en[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {seg_en[7]}]
 
-//seg_out  8bit
+#seg_out  8bit
 set_property PACKAGE_PIN F15 [get_ports {seg_out[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {seg_out[0]}]
 set_property PACKAGE_PIN F13 [get_ports {seg_out[1]}]
@@ -36,3 +36,22 @@ set_property PACKAGE_PIN C15 [get_ports {seg_out[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {seg_out[6]}]
 set_property PACKAGE_PIN E13 [get_ports {seg_out[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {seg_out[7]}]
+
+# 键盘输入
+set_property PACKAGE_PIN M2 [get_ports {col[3]}]
+set_property PACKAGE_PIN K6 [get_ports {col[2]}]
+set_property PACKAGE_PIN J6 [get_ports {col[1]}]
+set_property PACKAGE_PIN L5 [get_ports {col[0]}]
+set_property PACKAGE_PIN K4 [get_ports {row[3]}]
+set_property PACKAGE_PIN J4 [get_ports {row[2]}]
+set_property PACKAGE_PIN L3 [get_ports {row[1]}]
+set_property PACKAGE_PIN K3 [get_ports {row[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[0]}]
+# 键盘输入
