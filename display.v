@@ -21,15 +21,11 @@
 
 
 module display(
-input en,
 input clk,
 input rst,
 input [3:0] key,
-input [7:0] seg_en,
-output reg [7:0] seg_out,
-output [7:0] o_seg_en
+output reg [7:0] seg_out
     );
-    assign o_seg_en = seg_en<<1+1;
 always @*
     begin
        case(key)
