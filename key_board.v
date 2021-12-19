@@ -5,8 +5,8 @@ module key_board(
   input           rst,
   input      [3:0] row,                 // 矩阵键盘 行
   output reg [3:0] col,                 // 矩阵键盘 列
-  output reg [3:0] keyboard_val;        // 键盘当前值
-  output reg       key_pressed_flag;    // 键盘按下标志
+  output reg [3:0] keyboard_val,        // 键盘当前值
+  output reg       key_pressed_flag    // 键盘按下标志
 );
  
 reg [19:0] cnt;                        

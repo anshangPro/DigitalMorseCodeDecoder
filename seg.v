@@ -1,36 +1,14 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2021/12/03 15:03:30
-// Design Name: 
-// Module Name: seg_ces
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
-
-module seg_ces(
-input clk,
+module seg(
+input clk_fast,
 input rst,
 input [63:0] seg_in,
 output [7:0] seg_en,
 output reg [7:0] seg_out
     );
 wire clk_slow;
-wire clk_fast;
-counter slow(clk, rst, clk_fast);  
-counter fast(clk_fast, rst, clk_slow);
+counter slow(clk_fast, rst, clk_slow);
 
 // reg [2:0] bit; // store the bit which is lighting
 reg [2:0] cnt;

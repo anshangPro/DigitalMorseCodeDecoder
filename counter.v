@@ -25,14 +25,14 @@ module counter(
     input rst,
     output clk_out
     );
-    parameter period = 100000000;
+    parameter period = 14'd10000;
     reg [13:0] cnt_1, cnt_2;
     always @ (posedge clk or posedge rst) 
         if(rst)
-            cnt_1 <= 14'd0;
-        else if(cnt_1 == 14'd10000 )
+            cnt_1 <= period;
+        else if(cnt_1 == period )
             cnt_1 <= 14'd0;
         else cnt_1 <= cnt_1 + 1'b1;
         
-    assign clk_out = cnt_1 == 14'd10000 ? 1'b1 : 1'b0;
+    assign clk_out = cnt_1 == period ? 1'b1 : 1'b0;
 endmodule
