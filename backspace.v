@@ -7,8 +7,8 @@ input rst,
 input [63:0] seg_in,
 output reg [63:0] seg_out
     );
-    always @(posedge clk,negedge rst) begin
-        if (~rst) 
+    always @(posedge clk,posedge rst) begin
+        if (rst) 
         begin
             seg_out <= seg_in;
         end 
@@ -17,6 +17,7 @@ output reg [63:0] seg_out
             begin
                 seg_out <= {8'b0,seg_out[63:8]};
             end
+            else seg_out <= seg_in;
         end
     end
 endmodule
