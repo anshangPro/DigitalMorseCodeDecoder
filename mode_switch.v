@@ -1,11 +1,13 @@
 `timescale 1ns / 1ps
 
 module mode_switch(
-    input clk, rst,
+    input clk, rst, backspace,
     input mode_sw,
     input [3:0] row,
-    output reg [3:0] col,
-    output reg [23:0] led
+    output [3:0] col,
+    output reg [23:0] led,
+    output [7:0] seg_en,
+    output wire [7:0] seg_out
 );
 
 wire clk_fast;
@@ -29,5 +31,14 @@ wire [3:0] value;
 wire key_flag;
 wire [4:0] morse_cord;
 key_board key(clk, rst, row, col, value, key_flag);
-encoder encode(~mode, clk, rst, value, morse_cord);
+
+// 编码器部分
+wire [63:0] seg_enc;
+encoder_controller enc(~mode, clk, rst, backspace, key_flag, value, seg_enc);
+// 编码器部分
+
+// 灯！ 测试展示全接编码器了 记得改！
+seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
+// 灯！
+
 endmodule
