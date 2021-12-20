@@ -1,24 +1,4 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2021/12/03 15:08:15
-// Design Name: 
-// Module Name: counter
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
 
 module counter(
     input clk,
@@ -26,7 +6,7 @@ module counter(
     output clk_out
     );
     parameter period = 14'd10000;
-    reg [13:0] cnt_1, cnt_2;
+    reg [13:0] cnt_1;
     always @ (posedge clk or posedge rst) 
         if(rst)
             cnt_1 <= period;
