@@ -12,9 +12,10 @@ module mode_switch(
 );
 
 wire clk_fast;
-wire mode_stable;
+wire mode_stable, backspace_stable;
 counter fast(clk, rst, clk_fast);
 debounce modesw(clk_fast, rst, mode_sw, mode_stable);///消抖后的模式切换键
+debounce backspacebutton(clk_fast, rst, backspace, backspace_stable);//回退键除抖
 //decoder(mode);
 //encoder(~mode);
 
@@ -38,7 +39,7 @@ key_board key(clk, rst, row, col, value, key_flag);
 
 //模式切换，初始是编码
 wire [63:0] seg_enc;
-encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,value, seg_enc);
+encoder_controller enc(~mode, clk, rst, backspace_stable, key_flag,encoder_switch ,value, seg_enc);
 
 
 seg light(clk, rst, seg_enc, seg_en, seg_out);

@@ -19,20 +19,16 @@ reg [7:0] o_seg_en;
 assign seg_en = ~o_seg_en;
 
 always @ (posedge clk_fast or posedge rst) begin
-    if(rst)
+    if(rst) begin
         o_seg_en <= 8'b00000001;
-    else if(o_seg_en == 8'b10000000) begin
-        o_seg_en <= 8'b00000001;
+        cnt <= 3'b000;
     end
-    else o_seg_en <= o_seg_en<<1;
-end
-
-always @ (posedge clk_fast or posedge rst)begin
-    if(rst)
-        cnt <= 3'b000;
-    else if(cnt == 3'b111)
-        cnt <= 3'b000;
-    else cnt <= cnt + 3'b001;
+    else begin
+        if(o_seg_en == 8'b10000000) o_seg_en <= 8'b00000001;
+        else o_seg_en <= o_seg_en<<1;
+        if(cnt == 3'b111) cnt <= 3'b000;
+        else cnt <= cnt + 3'b001;
+    end 
 end
 
 always @ (posedge clk_fast) begin

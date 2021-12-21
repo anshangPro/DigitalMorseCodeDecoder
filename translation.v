@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module encoder(
+module translation(
     input en,
     input [7:0] seg_x,
     //input seg_x
