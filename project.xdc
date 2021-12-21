@@ -1,9 +1,13 @@
+
 set_property PACKAGE_PIN Y18 [get_ports {clk}]
 set_property IOSTANDARD LVCMOS33 [get_ports {clk}]
 set_property PACKAGE_PIN P1 [get_ports {mode_sw}]
 set_property IOSTANDARD LVCMOS33 [get_ports {mode_sw}]
 set_property PACKAGE_PIN R1 [get_ports {rst}]
 set_property IOSTANDARD LVCMOS33 [get_ports {rst}]
+set_property PACKAGE_PIN P5 [get_ports {backspace}]
+set_property IOSTANDARD LVCMOS33 [get_ports {backspace}]
+
 
 #seg_en 8bit
 set_property PACKAGE_PIN C19 [get_ports {seg_en[0]}]
@@ -90,3 +94,23 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
+
+set_property IOSTANDARD LVCMOS33 [get_ports {col[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {col[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {row[0]}]
+
+set_property PACKAGE_PIN M2 [get_ports {col[3]}]
+set_property PACKAGE_PIN K6 [get_ports {col[2]}]
+set_property PACKAGE_PIN J6 [get_ports {col[1]}]
+set_property PACKAGE_PIN L5 [get_ports {col[0]}]
+
+set_property PACKAGE_PIN K4 [get_ports {row[3]}]
+set_property PACKAGE_PIN J4 [get_ports {row[2]}]
+set_property PACKAGE_PIN L3 [get_ports {row[1]}]
+set_property PACKAGE_PIN K3 [get_ports {row[0]}]
+

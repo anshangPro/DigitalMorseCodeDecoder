@@ -1,34 +1,56 @@
 `timescale 1ns / 1ps
 
 module buzzer(
-    input  clk,
-    input  rst,
-    output reg beep
+	input rst,
+    input clk_lc,
+	input clk_sc,
+	input clk_ls,
+	input clk_ss,
+    output reg beep_lc,
+	output reg beep_sc,
+	output reg beep_ls,
+	output reg beep_ss
     );
-	
-	reg [19:0] cnt; 
-	
-	//计数模块，计数达到1000 000次，计数器清零
-	always @ (posedge clk or negedge rst)
+	always @ (posedge clk_lc , posedge rst)
 	begin
-		if(~rst)
-			cnt <= 20'b0;
-		else if(cnt < 20'd999_999)
-			cnt <= cnt + 1'b1;
-		else
-			cnt <= 20'b0;
-	end
- 
-    //占空比为50%，高电平有效
-	always @ (posedge clk or negedge rst)
-	begin
-		if(~rst)
-			beep <= 1'b0;
-		else if(cnt < 500_000)
-			beep <= 1'b1;
-		else 
-			beep <= 1'b0;
+		if(rst) begin
+			beep_lc <= 1'b0;
+		end
+		else begin
+		beep_lc <= beep_lc + 1;
+		end
 	
 	end
 	
-endmodule
+	always @ (posedge clk_sc , posedge rst)
+	begin
+		if(rst) begin
+			beep_sc <= 1'b0;
+		end
+		else begin
+			beep_sc <= beep_sc + 1;
+		end
+	
+	end
+
+	always @ (posedge clk_ls , posedge rst)
+	begin
+		if(rst) begin
+			beep_ls <= 1'b0;
+		end
+		else begin
+			beep_ls <= beep_ls + 1;
+		end
+	
+	end
+
+	always @ (posedge clk_ss , posedge rst)
+	begin
+		if(rst) begin
+			beep_ss <= 1'b0;
+		end
+		else begin
+			beep_ss <= beep_ss + 1;
+		end
+	
+	end

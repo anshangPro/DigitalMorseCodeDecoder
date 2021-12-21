@@ -1,5 +1,4 @@
 `timescale 1ns / 1ps
-
 // used to debounce 按键消除抖动
 module debounce(
     input clk_fast,
@@ -7,6 +6,7 @@ module debounce(
     input key_in,
     output reg key_out
     );
+
     // 有信号变化时立刻输出信号改变，并且在之后的0.5s内 忽略信号变化
     wire clk_out;
     reg change;
