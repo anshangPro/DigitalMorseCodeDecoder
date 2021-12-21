@@ -54,3 +54,5 @@ module buzzer(
 		end
 	
 	end
+	
+endmodule

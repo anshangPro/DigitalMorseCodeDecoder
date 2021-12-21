@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module register (
@@ -34,4 +33,7 @@ module register (
     shift shift(flag | backspace_button, rst, mode, val, seg_out);
 
 endmodule
+
+
+
 
