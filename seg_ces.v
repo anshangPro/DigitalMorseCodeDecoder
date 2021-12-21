@@ -1,14 +1,17 @@
 `timescale 1ns / 1ps
 
 module seg(
-input clk_fast,
+input clk,
 input rst,
 input [63:0] seg_in,
 output [7:0] seg_en,
 output reg [7:0] seg_out
     );
+wire clk_fast;
+counter fast(clk, rst, clk_fast);
 wire clk_slow;
 counter slow(clk_fast, rst, clk_slow);
+
 
 reg [2:0] cnt;
 reg [7:0] o_seg_en;

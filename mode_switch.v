@@ -41,7 +41,7 @@ wire [63:0] seg_enc;
 encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,value, seg_enc);
 
 
-seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
+seg light(clk, rst, seg_enc, seg_en, seg_out);
 
 
 endmodule
