@@ -1,4 +1,3 @@
-
 `timescale 1ns / 1ps
 
 module mode_switch(
@@ -42,5 +41,6 @@ encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,valu
 
 
 seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
+
 
 endmodule

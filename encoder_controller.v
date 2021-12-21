@@ -8,7 +8,7 @@ module encoder_controller (
 );
 
 wire [4:0] morse_cord;
-register regist(en,flag,backspace_button, rst, key,  seg_out);
+register regist(en,clk, flag,backspace_button, rst, key,  seg_out);
 encoder enc(en, encoder_switch , rst, key,morse_cord);
     
 endmodule

@@ -1,8 +1,8 @@
-
 `timescale 1ns / 1ps
 
 module register (
     input en,
+    input clk,
     input flag,
     input backspace_button,
     input rst,
@@ -14,8 +14,7 @@ module register (
     //mode = 0 -> flag
     reg mode;
     wire cir;
-    assign cir = flag | backspace_button;
-    always @ (posedge cir, posedge rst) begin
+    always @ (posedge clk, posedge rst) begin
         if (en) begin
             if(rst) begin
                 mode <= 0;
@@ -30,8 +29,7 @@ module register (
     end
 
     wire[7:0] val;
-    transfer trans(flag, rst, keyboard_val, val);
-    shift shift(flag | backspace_button, rst, mode, val, seg_out);
+    transfer trans(clk, rst, keyboard_val, val);
+    shift shift(clk, rst, flag, backspace_button, mode, val, seg_out);
 
 endmodule
-
