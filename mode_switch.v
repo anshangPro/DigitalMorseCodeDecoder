@@ -13,10 +13,12 @@ module mode_switch(
 wire clk_fast;
 wire mode_stable;
 counter fast(clk, rst, clk_fast);
-debounce modesw(clk_fast, rst, mode_sw, mode_stable);
+debounce modesw(clk_fast, rst, mode_sw, mode_stable);//消抖后的模式切换键
 //decoder(mode);
 //encoder(~mode);
-reg mode; // 1为解码器 0为编码器
+
+//模式切换，初始是编码
+reg mode; 
 always @(posedge mode_stable or posedge rst) begin
     if(rst)begin 
         mode <= 0;
@@ -27,18 +29,18 @@ always @(posedge mode_stable or posedge rst) begin
     end
 end
 
+//矩阵键盘输入，flag为1时代表按下
 wire [3:0] value;
 wire key_flag;
 wire [4:0] morse_cord;
 key_board key(clk, rst, row, col, value, key_flag);
 
-// 编码器部分
+//编码器部分,高电平有效
 wire [63:0] seg_enc;
-encoder_controller enc(~mode, clk, rst, backspace, key_flag, value, seg_enc);
-// 编码器部分
+encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,value, seg_enc);
 
-// 灯！ 测试展示全接编码器了 记得改！
+
 seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
-// 灯！
+
 
 endmodule
