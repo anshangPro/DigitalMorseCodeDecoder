@@ -25,11 +25,11 @@ module register (
             else begin 
                 mode <= 0;
             end
-        end
+        end else mode <= 0;
     end
 
     wire[7:0] val;
-    transfer trans(clk, rst, keyboard_val, val);
-    shift shift(clk, rst, flag, backspace_button, mode, val, seg_out);
+    //transfer trans(clk, rst, keyboard_val, val);
+    shift shift(clk, rst, flag, backspace_button, mode, keyboard_val, seg_out);
 
 endmodule
