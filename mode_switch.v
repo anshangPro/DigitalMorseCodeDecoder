@@ -1,3 +1,4 @@
+
 `timescale 1ns / 1ps
 
 module mode_switch(
@@ -13,11 +14,11 @@ module mode_switch(
 wire clk_fast;
 wire mode_stable;
 counter fast(clk, rst, clk_fast);
-debounce modesw(clk_fast, rst, mode_sw, mode_stable);//Ïû¶¶ºóµÄÄ£Ê½ÇĞ»»¼ü
+debounce modesw(clk_fast, rst, mode_sw, mode_stable);//æ¶ˆæŠ–åçš„æ¨¡å¼åˆ‡æ¢é”®
 //decoder(mode);
 //encoder(~mode);
 
-//Ä£Ê½ÇĞ»»£¬³õÊ¼ÊÇ±àÂë
+//æ¨¡å¼åˆ‡æ¢ï¼Œåˆå§‹æ˜¯ç¼–ç 
 reg mode; 
 always @(posedge mode_stable or posedge rst) begin
     if(rst)begin 
@@ -29,18 +30,17 @@ always @(posedge mode_stable or posedge rst) begin
     end
 end
 
-//¾ØÕó¼üÅÌÊäÈë£¬flagÎª1Ê±´ú±í°´ÏÂ
+//çŸ©é˜µé”®ç›˜è¾“å…¥ï¼Œflagä¸º1æ—¶ä»£è¡¨æŒ‰ä¸‹
 wire [3:0] value;
 wire key_flag;
 wire [4:0] morse_cord;
 key_board key(clk, rst, row, col, value, key_flag);
 
-//±àÂëÆ÷²¿·Ö,¸ßµçÆ½ÓĞĞ§
+//ç¼–ç å™¨éƒ¨åˆ†,é«˜ç”µå¹³æœ‰æ•ˆ
 wire [63:0] seg_enc;
 encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,value, seg_enc);
 
 
 seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
-
 
 endmodule

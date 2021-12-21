@@ -1,3 +1,4 @@
+
 `timescale 1ns / 1ps
 
 module encoder(
@@ -26,5 +27,3 @@ module encoder(
             endcase
         end
     end
-    
-endmodule

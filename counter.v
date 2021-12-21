@@ -6,7 +6,7 @@ module counter(
     output clk_out
     );
     parameter period = 14'd10000;
-    reg [13:0] cnt_1;
+    reg [13:0] cnt_1, cnt_2;
     always @ (posedge clk or posedge rst) 
         if(rst)
             cnt_1 <= period;
