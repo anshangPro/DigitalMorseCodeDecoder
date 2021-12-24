@@ -40,7 +40,7 @@ key_board key(clk, rst, row, col, value, key_flag);
 
 //模式切换，初始是编码
 wire [63:0] seg_enc;
-encoder_controller enc(~mode, clk, rst, backspace_stable, key_flag, encoder_switch, beep_sw1, beep_sw2, beep_sw3, value, seg_enc, beep);
+encoder_controller enc(clk, mode | rst, backspace_stable, key_flag, encoder_switch, beep_sw1, beep_sw2, beep_sw3, value, seg_enc, beep);
 decoder dec(mode, clk, rst, value, key_flag, backspace_stable, led[8:4], led[2:0]);
 
 
