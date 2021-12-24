@@ -12,37 +12,36 @@ module mode_switch(
 );
 
 wire clk_fast;
-wire mode_stable, backspace_stable;
+wire mode_stable;
 counter fast(clk, rst, clk_fast);
-debounce modesw(clk_fast, rst, mode_sw, mode_stable);///消抖后的模式切换键
-debounce backspacebutton(clk_fast, rst, backspace, backspace_stable);//回退键除抖
+debounce modesw(clk_fast, rst, mode_sw, mode_stable);//消抖后的模式切换�?
 //decoder(mode);
 //encoder(~mode);
 
-//模式切换
+//模式切换，初始是编码
 reg mode; 
 always @(posedge mode_stable or posedge rst) begin
     if(rst)begin 
-        mode = 0;
-        led[23] = 0;
+        mode <= 0;
+        led[23] <= 0;
     end else begin
-        mode = mode +1;
-        led[23] = led[23] +1;
+        mode <= mode +1;
+        led[23] <= led[23] +1;
     end
 end
 
-//矩阵键盘输入，flag为1时代表按下
+//矩阵键盘输入，flag�?1时代表按�?
 wire [3:0] value;
 wire key_flag;
 wire [4:0] morse_cord;
 key_board key(clk, rst, row, col, value, key_flag);
 
-//模式切换，初始是编码
+//编码器部�?,高电平有�?
 wire [63:0] seg_enc;
-encoder_controller enc(~mode, clk, rst, backspace_stable, key_flag,encoder_switch ,value, seg_enc);
+encoder_controller enc(~mode, clk, rst, backspace, key_flag,encoder_switch ,value, seg_enc);
 
 
-seg light(clk, rst, seg_enc, seg_en, seg_out);
+seg light(clk_fast, rst, seg_enc, seg_en, seg_out);
 
 
 endmodule
