@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module buzzer(
-    input en,
 	input rst,
     input clk,
     input [74:0]beep_bit,
@@ -14,9 +13,8 @@ module buzzer(
 
     reg [5:0]cnt;
 
-    assign beep = final_clk & beep_bit[cnt] & en;
+    assign beep = final_clk & beep_bit[cnt] & ~rst;
     always @(posedge clk,posedge rst) begin
-        if (en) begin
             if (rst) begin
                 cnt <= 0;
             end
@@ -28,7 +26,6 @@ module buzzer(
                     cnt <= 0;
                 end
             end
-        end
     end
 	
 	

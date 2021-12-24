@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module buzzer_trans(input en,
+module buzzer_trans(
                     input clk,
                     input rst,
                     input [1:0]temp1,          /////shortest
@@ -13,7 +13,6 @@ module buzzer_trans(input en,
     reg code_first;
     reg [2:0]cnt;
     always @(posedge clk or posedge rst) begin
-        if (en) begin
             if (rst) begin
                 beep_bit <= 0;
                 cnt      <= 3'b000;
@@ -51,7 +50,6 @@ module buzzer_trans(input en,
                     cnt <= 0;
                 end
             end
-        end
     end
     
 endmodule

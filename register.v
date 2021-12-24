@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module register (
-    input en,
     input clk,
     input flag,
     input backspace_button,
@@ -14,7 +13,6 @@ module register (
     //mode = 0 -> flag
     reg mode;
     always @ (posedge clk, posedge rst) begin
-        if (en) begin
             if(rst) begin
                 mode <= 0;
             end
@@ -24,7 +22,6 @@ module register (
             else begin 
                 mode <= 0;
             end
-        end else mode <= 0;
     end
 
     wire[7:0] val;
