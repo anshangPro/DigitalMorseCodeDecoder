@@ -1,16 +1,15 @@
 `timescale 1ns / 1ps
 
 module decoder(
-input en,
-input clk,
-input rst,
-input [3:0] key,
-input flag,
-input backspace,
-output reg [4:0] led_morse,
-output reg [2:0] led_cnt
-//output [7:0] seg_en,
-//output [7:0] seg_out
+    input en,
+    input clk,
+    input rst,
+    input [3:0] key,
+    input flag,
+    input backspace,
+    output reg [4:0] led_morse,
+    output reg [2:0] led_cnt,
+    output [63:0] out
     );
     // 初定 5位表示正常的摩斯码 3位表示当前输入位数 输入从右往左入 
     reg bs_lag1, bs_lag2;
@@ -23,7 +22,8 @@ output reg [2:0] led_cnt
         flag_lag2 <= flag_lag1;
     end
     //左长键* 右短键#  d为回车 确认键
-    reg [5:0] value;
+    reg [4:0] value;
+//    reg [5:0] value;
 
     wire block;
     assign block = led_cnt[0] & ~led_cnt[1] & led_cnt[2];
@@ -167,93 +167,12 @@ output reg [2:0] led_cnt
             end
             if(bs_lag1 & ~bs_lag2) begin
                 led_morse <= {1'b0, led_morse[4:1]};
-                if(led_cnt != 0) led_cnt <= led_cnt -1;
+                if(led_cnt != 0) led_cnt <= led_cnt - 1;
             end
         end else begin
             led_morse <= 0;
             led_cnt <= 0;
         end
     end
-
+    de_translation de_tr(clk, rst | ~en, flag, value, out);
 endmodule
-
-
-
-// 00001   010
-// 01000 100
-// 01010 100
-// 00100  011
-// 00000    001
-// 00010 100
-// 00110  011
-// 00000 100
-// 00000   010
-// 00111 100
-// 00101  011
-// 00100 100
-// 00011   010
-// 00010   010
-// 00111  011
-// 00110 100
-// 01101 100
-// 00010  011
-// 00000  011
-// 00001    001
-// 00001  011
-// 00001 100
-// 00011  011
-// 01001 100
-// 01011 100
-// 01100 100
-
-
-// 01111 101
-// 00111 101
-// 00011 101
-// 00001 101
-// 00000 101
-// 10000 101
-// 11000 101
-// 11100 101
-// 11110 101
-// 11111 101
-
-
-// 01     //a
-// 1000   //b
-// 1010   //c
-// 100    //d
-// 0      //e
-// 0010   //f
-// 110    //g
-// 0000   //h
-// 00     //i
-// 0111   //j
-// 101    //k
-// 0100   //l
-// 11     //m
-// 10     //n
-// 111    //o
-// 0110   //p
-// 1101   //q
-// 010    //r
-// 000    //s
-// 1      //t
-// 001    //u
-// 0001   //v
-// 011    //w
-// 1001   //x
-// 1011   //y
-// 1100   //z
-
-
-// 01111  //1
-// 00111  //2
-// 00011  //3
-// 00001  //4
-// 00000  //5
-// 10000  //6
-// 11000  //7
-// 11100  //8
-// 11110  //9
-// 11111  //0

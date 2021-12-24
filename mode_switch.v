@@ -40,11 +40,12 @@ key_board key(clk, rst, row, col, value, key_flag);
 
 //模式切换，初始是编码
 wire [63:0] seg_enc;
+wire [63:0] seg_dec;
 encoder_controller enc(clk, mode | rst, backspace_stable, key_flag, encoder_switch, beep_sw1, beep_sw2, beep_sw3, value, seg_enc, beep);
-decoder dec(mode, clk, rst, value, key_flag, backspace_stable, led[8:4], led[2:0]);
+decoder dec(mode, clk, rst, value, key_flag, backspace_stable, led[8:4], led[2:0], seg_dec);
 
 
-seg light(clk, rst, seg_enc, seg_en, seg_out);
+seg light(clk, rst, (seg_enc & ~mode) | (seg_dec & mode), seg_en, seg_out);
 
 
 endmodule
