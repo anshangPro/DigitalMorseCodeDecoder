@@ -13,7 +13,6 @@ module register (
     //mode = 1 -> backspace
     //mode = 0 -> flag
     reg mode;
-    wire cir;
     always @ (posedge clk, posedge rst) begin
         if (en) begin
             if(rst) begin

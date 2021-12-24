@@ -35,7 +35,15 @@ always @ (posedge clk, posedge rst) begin
         out <= ~0;
     end 
     else if(~direction) begin
-        if(flag_lag2 & ~flag_lag3) out <= {out[55:0], in};
+        if(flag_lag1 & ~flag_lag2) counting <= 1;
+        if(counting) begin
+            if(cnt == 1000000) begin
+                counting <= 0;
+                cnt <= 0;
+                out <= {out[55:0], val};  // 检测到按键按下就将输入载入  若解码模式 此逻辑须改为检测输入是否合法
+            end 
+            else cnt <= cnt + 1;
+        end
     end 
     else begin 
         if(bs_lag2 & ~bs_lag3)out <= {8'b1111_1111, out[63:8]};
