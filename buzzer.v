@@ -1,58 +1,35 @@
 `timescale 1ns / 1ps
 
 module buzzer(
+    input en,
 	input rst,
-    input clk_lc,
-	input clk_sc,
-	input clk_ls,
-	input clk_ss,
-    output reg beep_lc,
-	output reg beep_sc,
-	output reg beep_ls,
-	output reg beep_ss
+    input clk,
+    input [74:0]beep_bit,
+    output beep
     );
-	always @ (posedge clk_lc , posedge rst)
-	begin
-		if(rst) begin
-			beep_lc <= 1'b0;
-		end
-		else begin
-		beep_lc <= beep_lc + 1;
-		end
-	
-	end
-	
-	always @ (posedge clk_sc , posedge rst)
-	begin
-		if(rst) begin
-			beep_sc <= 1'b0;
-		end
-		else begin
-			beep_sc <= beep_sc + 1;
-		end
-	
-	end
 
-	always @ (posedge clk_ls , posedge rst)
-	begin
-		if(rst) begin
-			beep_ls <= 1'b0;
-		end
-		else begin
-			beep_ls <= beep_ls + 1;
-		end
-	
-	end
+	wire clk_02;
+	counter #(2000)second1(clk,rst,clk_02);
+    counter #(191)second2(clk_02,rst,final_clk);
 
-	always @ (posedge clk_ss , posedge rst)
-	begin
-		if(rst) begin
-			beep_ss <= 1'b0;
-		end
-		else begin
-			beep_ss <= beep_ss + 1;
-		end
+    reg [5:0]cnt;
+
+    assign beep = final_clk & beep_bit[cnt] & en;
+    always @(posedge clk,posedge rst) begin
+        if (en) begin
+            if (rst) begin
+                cnt <= 0;
+            end
+            else begin
+                if (cnt!=6'b101000) begin
+                    cnt = cnt + 1;
+                end
+                else begin
+                    cnt <= 0;
+                end
+            end
+        end
+    end
 	
-	end
 	
 endmodule

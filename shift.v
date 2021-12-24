@@ -1,6 +1,7 @@
 `timescale 1ns / 1ps
 
 module shift(
+    input en,
     input clk, //backspace or flag
     input rst,
     input flag,
@@ -13,16 +14,19 @@ module shift(
     reg flag_lag1, flag_lag2;
 
     always @ (posedge clk) begin
+    if (en) begin
         bs_lag1  <= bs_button;
         flag_lag1 <= flag;
         bs_lag2  <= bs_lag1;
         flag_lag2 <= flag_lag1;
+    end
     end
 
 reg counting;
 reg [19:0] cnt;
 reg [7:0] val;
 always @ (posedge clk, posedge rst) begin
+if (en) begin
     if(rst) begin
         out <= ~0;
         cnt <= 0;
@@ -60,6 +64,7 @@ always @ (posedge clk, posedge rst) begin
             4'hE: val=8'b1000_0110;  // E
             4'hF: val=8'b1000_1110;  // F
         endcase
+    end
 end
 
 endmodule

@@ -27,6 +27,15 @@ set_property IOSTANDARD LVCMOS33 [get_ports {encoder_switch[6]}]
 set_property PACKAGE_PIN U6 [get_ports {encoder_switch[7]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {encoder_switch[7]}]
 
+#switch for buzzer
+set_property PACKAGE_PIN V5 [get_ports {switch1}]
+set_property IOSTANDARD LVCMOS33 [get_ports {switch1}]
+set_property PACKAGE_PIN R6 [get_ports {switch2}]
+set_property IOSTANDARD LVCMOS33 [get_ports {switch2}]
+set_property PACKAGE_PIN T6 [get_ports {switch3}]
+set_property IOSTANDARD LVCMOS33 [get_ports {switch3}]
+set_property PACKAGE_PIN A19 [get_ports {beep}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep}]
 
 #seg_en 8bit
 set_property PACKAGE_PIN C19 [get_ports {seg_en[0]}]
