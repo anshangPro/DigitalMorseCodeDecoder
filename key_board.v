@@ -116,7 +116,7 @@ always @ (posedge key_clk or posedge rst)
 //++++++++++++++++++++++++++++++++++++++
 // 扫描行列值部分 开始
 //++++++++++++++++++++++++++++++++++++++
-always @ (posedge key_clk or posedge rst)
+always @ (posedge clk or posedge rst)
   if (rst)
     keyboard_val <= 4'h0;
   else
