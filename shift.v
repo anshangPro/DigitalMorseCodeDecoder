@@ -22,14 +22,12 @@ module shift(
 reg counting;
 reg [19:0] cnt;
 reg [7:0] val;
-wire [7:0] last_seg;
-assign last_seg = out[63:56];
 always @ (posedge clk, posedge rst) begin
     if(rst) begin
         out <= ~0;
         cnt <= 0;
     end
-    else if(~direction && last_seg == 8'b1111_1111) begin
+    else if(~direction) begin
         if(flag_lag1 & ~flag_lag2) counting <= 1;
         if(counting) begin
             if(cnt == 1000000) begin

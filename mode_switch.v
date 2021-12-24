@@ -24,12 +24,8 @@ debounce backspacebutton(clk_fast, rst, backspace, backspace_stable);//回退键
 //模式切换
 reg mode; 
 assign led[23] = mode;
-always @(posedge mode_stable or posedge rst) begin
-    if(rst)begin 
-        mode = 0;
-    end else begin
+always @(posedge mode_stable) begin
         mode = mode +1;
-    end
 end
 
 //矩阵键盘输入，flag为1时代表按下
@@ -44,8 +40,9 @@ wire [63:0] seg_dec;
 encoder_controller enc(clk, mode | rst, backspace_stable, key_flag, encoder_switch, beep_sw1, beep_sw2, beep_sw3, value, seg_enc, beep);
 decoder dec(mode, clk, rst, value, key_flag, backspace_stable, led[8:4], led[2:0], seg_dec);
 
-
-seg light(clk, rst, (seg_enc & ~mode) | (seg_dec & mode), seg_en, seg_out);
+wire [63:0] seg;
+mux64 mux(mode, seg_dec, seg_enc, seg);
+seg light(clk, rst, seg, seg_en, seg_out);
 
 
 endmodule
