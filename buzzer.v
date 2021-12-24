@@ -15,18 +15,16 @@ module buzzer(
 
     assign beep = final_clk & beep_bit[cnt] & ~rst;
     always @(posedge clk,posedge rst) begin
-            if (rst) begin
-                cnt <= 0;
+        if (rst) begin
+            cnt <= 0;
+        end
+        else begin
+            if (cnt!=6'b101000) begin
+                cnt = cnt + 1;
             end
             else begin
-                if (cnt!=6'b101000) begin
-                    cnt = cnt + 1;
-                end
-                else begin
-                    cnt <= 0;
-                end
+                 cnt <= 0;
             end
+        end
     end
-	
-	
 endmodule

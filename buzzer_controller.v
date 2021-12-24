@@ -11,7 +11,6 @@ module buzzer_controller(
 	output reg temp3
     );
 
-
 	always @(posedge clk or posedge rst) begin
         if (rst) begin
 			temp1 <= 2'b01;
@@ -54,32 +53,4 @@ module buzzer_controller(
 		end
 		end
     end
-
-	
-
-    // //long_code
-    // always @(temp1) begin
-	// 	case(temp1)
-	// 	2'b01:time_lc=5'b11111;//1.0
-	// 	2'b10:time_lc=8'b1111_1111;//1.6
-	// 	2'b11:time_lc=10'b11_1111_1111;//2.0
-	// 	endcase
-	// end
-
-    // //short_code
-	// always @(temp2) begin
-	// 	case(temp2)
-	// 	2'b01:time_sc=1'b1;//0.2
-	// 	2'b10:time_sc=3'b111;//0.6
-	// 	2'b11:time_sc=4'b1111;//0.8
-	// 	endcase
-	// end
-
-    // //short_space
-	// always @(temp3) begin
-	// 	case(temp3)
-	// 	1'b0:time_ss=3'b0;//0.6
-	// 	1'b1:time_ss=5'b0;//1.0
-	// 	endcase
-	// end
 endmodule
