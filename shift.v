@@ -1,7 +1,6 @@
 `timescale 1ns / 1ps
 
 module shift(
-    input en,
     input clk, //backspace or flag
     input rst,
     input flag,
@@ -14,30 +13,29 @@ module shift(
     reg flag_lag1, flag_lag2;
 
     always @ (posedge clk) begin
-    if (en) begin
         bs_lag1  <= bs_button;
         flag_lag1 <= flag;
         bs_lag2  <= bs_lag1;
         flag_lag2 <= flag_lag1;
     end
-    end
 
 reg counting;
 reg [19:0] cnt;
 reg [7:0] val;
+wire [7:0] last_seg;
+assign last_seg = out[63:56];
 always @ (posedge clk, posedge rst) begin
-if (en) begin
     if(rst) begin
         out <= ~0;
         cnt <= 0;
     end
-    else if(~direction) begin
+    else if(~direction && last_seg == 8'b1111_1111) begin
         if(flag_lag1 & ~flag_lag2) counting <= 1;
         if(counting) begin
             if(cnt == 1000000) begin
                 counting <= 0;
                 cnt <= 0;
-                out <= {out[55:0], val};
+                out <= {out[55:0], val};  // 检测到按键按下就将输入载入  若解码模式 此逻辑须改为检测输入是否合法
             end 
             else cnt <= cnt + 1;
         end
@@ -64,7 +62,6 @@ if (en) begin
             4'hE: val=8'b1000_0110;  // E
             4'hF: val=8'b1000_1110;  // F
         endcase
-    end
 end
 
 endmodule
