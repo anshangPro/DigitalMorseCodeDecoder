@@ -11,7 +11,7 @@ module decoder(
     output reg [2:0] led_cnt,
     output [63:0] out
     );
-    // åˆå®š 5ä½è¡¨ç¤ºæ­£å¸¸çš„æ‘©æ–¯ç  3ä½è¡¨ç¤ºå½“å‰è¾“å…¥ä½æ•° è¾“å…¥ä»å³å¾€å·¦å…¥ 
+    // ³õ¶¨ 5Î»±íÊ¾Õı³£µÄÄ¦Ë¹Âë 3Î»±íÊ¾µ±Ç°ÊäÈëÎ»Êı ÊäÈë´ÓÓÒÍù×óÈë 
     reg bs_lag1, bs_lag2;
     reg flag_lag1, flag_lag2;
 
@@ -21,7 +21,7 @@ module decoder(
         bs_lag2  <= bs_lag1;
         flag_lag2 <= flag_lag1;
     end
-    //å·¦é•¿é”®* å³çŸ­é”®#  dä¸ºå›è½¦ ç¡®è®¤é”®
+    //×ó³¤¼ü* ÓÒ¶Ì¼ü#  dÎª»Ø³µ È·ÈÏ¼ü
 //    reg [4:0] value;
     reg [5:0] value;
 
@@ -49,7 +49,7 @@ module decoder(
                     end
                 end
                 else begin
-                    // TODO è¾“å…¥å¤ªé•¿çš„è­¦å‘Š
+                    // TODO ÊäÈëÌ«³¤µÄ¾¯¸æ
                     led_morse <= led_morse;
                     led_cnt <= led_cnt;
                 end
@@ -203,7 +203,7 @@ module decoder(
                                 value <= 6'h0;
                                 trans <= 1;
                             end
-                            default: ;//è­¦å‘Š
+                            default: ;//¾¯¸æ
                     endcase
                 end
             end
