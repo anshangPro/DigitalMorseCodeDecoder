@@ -9,6 +9,20 @@ set_property IOSTANDARD LVCMOS33 [get_ports {backspace}]
 set_property PACKAGE_PIN P2 [get_ports {encoder_switch[8]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {encoder_switch[8]}]
 
+#buzzer switch
+set_property PACKAGE_PIN V5 [get_ports {beep_sw1[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep_sw1[0]}]
+set_property PACKAGE_PIN R6 [get_ports {beep_sw1[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep_sw1[1]}]
+set_property PACKAGE_PIN T6 [get_ports {beep_sw2[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep_sw2[0]}]
+set_property PACKAGE_PIN Y6 [get_ports {beep_sw2[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep_sw2[1]}]
+set_property PACKAGE_PIN AA6 [get_ports {beep_sw3}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep_sw3}]
+set_property PACKAGE_PIN A19 [get_ports {beep}]
+set_property IOSTANDARD LVCMOS33 [get_ports {beep}]
+
 #switch for encoder
 set_property PACKAGE_PIN W4 [get_ports {encoder_switch[0]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {encoder_switch[0]}]
@@ -114,6 +128,7 @@ set_property IOSTANDARD LVCMOS33 [get_ports {led[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[1]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {led[0]}]
 
+#keyboard
 set_property IOSTANDARD LVCMOS33 [get_ports {col[3]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {col[2]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {col[1]}]
