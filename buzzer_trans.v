@@ -19,7 +19,7 @@ module buzzer_trans(
     always @(posedge clk, posedge rst) begin
         if (rst) begin
             cnt <= 3'b000;
-            code_first <= 0;
+            code_first <=  morse_code[0];
             en <= 0;
         end
         else if(morse_code == 5'b10101) begin
@@ -33,6 +33,7 @@ module buzzer_trans(
                 cnt <= cnt+1;
                 en <= 1;
             end
+            else en <= 0;
         end
     end
 
@@ -49,39 +50,39 @@ module buzzer_trans(
             if (en) begin
                 if (code_first) begin
                     case ({sw_lc,sw_ss})
-                    3'b000: begin
-                        beep_bit <= {beep_bit,8'b00011111};
-                        wid <= wid + 4'b1000;
-                    end
+                        3'b000: begin
+                            beep_bit <= {beep_bit,8'b00011111};
+                            wid <= wid + 4'b1000;
+                        end
 
-                    3'b001: begin 
-                        beep_bit <= {beep_bit,10'b0000011111};
-                        wid <= wid + 4'b1010;
-                    end 
+                        3'b001: begin 
+                            beep_bit <= {beep_bit,10'b0000011111};
+                            wid <= wid + 4'b1010;
+                        end 
 
-                    3'b010: begin
-                        beep_bit <= {beep_bit,11'b00011111111};
-                        wid <= wid + 4'b1011;
-                    end
+                        3'b010: begin
+                            beep_bit <= {beep_bit,11'b00011111111};
+                            wid <= wid + 4'b1011;
+                        end
 
-                    3'b011: begin 
-                        beep_bit <= {beep_bit,13'b0000011111111};
-                        wid <= wid + 4'b1101;
-                    end
+                        3'b011: begin 
+                            beep_bit <= {beep_bit,13'b0000011111111};
+                            wid <= wid + 4'b1101;
+                        end
 
-                    3'b100: begin 
-                        beep_bit <= {beep_bit,13'b0001111111111};
-                        wid <= wid + 4'b1101;
-                    end
+                        3'b100: begin 
+                            beep_bit <= {beep_bit,13'b0001111111111};
+                            wid <= wid + 4'b1101;
+                        end
 
-                    3'b101: begin
-                        beep_bit <= {beep_bit,15'b000001111111111};
-                        wid <= wid + 4'b1111;
-                    end
-                    default begin 
-                        beep_bit <= 0;
-                        wid <= 0;
-                    end
+                        3'b101: begin
+                            beep_bit <= {beep_bit,15'b000001111111111};
+                            wid <= wid + 4'b1111;
+                        end
+                        default begin 
+                            beep_bit <= 0;
+                            wid <= 0;
+                        end
                     endcase
                 end
                 else begin

@@ -5,9 +5,9 @@ module mode_switch(
     input mode_sw,
     input [1:0] beep_sw1,
     input [1:0] beep_sw2,
-    input beep_sw3, // ·äÃùÆ÷Ä£Ê½
+    input beep_sw3, // èœ‚é¸£å™¨æ¨¡å¼
     input [3:0] row,
-    input [8:0] encoder_switch, // °Ë¸ö²¥·Å¼ü
+    input [8:0] encoder_switch, // å…«ä¸ªæ’­æ”¾é”®
     output [3:0] col,
     output [23:0] led,
     output [7:0] seg_en,
@@ -18,25 +18,25 @@ module mode_switch(
 wire clk_fast;
 wire mode_stable, backspace_stable;
 counter fast(clk, rst, clk_fast);
-debounce modesw(clk_fast, rst, mode_sw, mode_stable);///Ïû¶¶ºóµÄÄ£Ê½ÇĞ»»¼ü
-debounce backspacebutton(clk_fast, rst, backspace, backspace_stable);//»ØÍË¼ü³ı¶¶
+debounce modesw(clk_fast, rst, mode_sw, mode_stable);///æ¶ˆæŠ–åçš„æ¨¡å¼åˆ‡æ¢é”®
+debounce backspacebutton(clk_fast, rst, backspace, backspace_stable);//å›é€€é”®é™¤æŠ–
 //decoder(mode);
 //encoder(~mode);
 
-//Ä£Ê½ÇĞ»»
+//æ¨¡å¼åˆ‡æ¢
 reg mode; 
 assign led[23] = mode;
 always @(posedge mode_stable) begin
         mode = mode +1;
 end
 
-//¾ØÕó¼üÅÌÊäÈë£¬flagÎª1Ê±´ú±í°´ÏÂ
+//çŸ©é˜µé”®ç›˜è¾“å…¥ï¼Œflagä¸º1æ—¶ä»£è¡¨æŒ‰ä¸‹
 wire [3:0] value;
 wire key_flag;
 wire [4:0] morse_cord;
 key_board key(clk, rst, row, col, value, key_flag);
 
-//Ä£Ê½ÇĞ»»£¬³õÊ¼ÊÇ±àÂë
+//æ¨¡å¼åˆ‡æ¢ï¼Œåˆå§‹æ˜¯ç¼–ç 
 wire [63:0] seg_enc;
 wire [63:0] seg_dec;
 encoder_controller enc(clk, mode | rst, backspace_stable, key_flag, encoder_switch, beep_sw1, beep_sw2, beep_sw3, value, seg_enc, beep);
