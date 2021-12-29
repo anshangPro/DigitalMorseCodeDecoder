@@ -1,16 +1,15 @@
 `timescale 1ns / 1ps
 
 module decoder(
-input en,
-input clk,
-input rst,
-input [3:0] key,
-input flag,
-input backspace,
-output reg [4:0] led_morse,
-output reg [2:0] led_cnt
-//output [7:0] seg_en,
-//output [7:0] seg_out
+    input en,
+    input clk,
+    input rst,
+    input [3:0] key,
+    input flag,
+    input backspace,
+    output reg [4:0] led_morse,
+    output reg [2:0] led_cnt,
+    output [63:0] out
     );
     // 初定 5位表示正常的摩斯码 3位表示当前输入位数 输入从右往左入 
     reg bs_lag1, bs_lag2;
@@ -23,15 +22,20 @@ output reg [2:0] led_cnt
         flag_lag2 <= flag_lag1;
     end
     //左长键* 右短键#  d为回车 确认键
+//    reg [4:0] value;
     reg [5:0] value;
 
     wire block;
     assign block = led_cnt[0] & ~led_cnt[1] & led_cnt[2];
+    reg trans;
+    reg [4:0] led_morse_backup;
+    reg [2:0] led_cnt_backup;
 
     always @(posedge clk, posedge rst) begin
         if(rst) begin
             led_morse <= 0;
             led_cnt <= 0;
+            trans <= 0;
         end else if(en) begin
             if(flag_lag1 & ~flag_lag2) begin
                 if(~block) begin
@@ -49,211 +53,170 @@ output reg [2:0] led_cnt
                     led_morse <= led_morse;
                     led_cnt <= led_cnt;
                 end
-                    if(key == 4'hd) begin
-                        led_morse <= 0;
-                        led_cnt <= 0;
-                        case({led_morse, led_cnt})
+                if(key == 4'hd) begin
+                    led_morse <= 0;
+                    led_morse_backup <= led_morse;
+                    led_cnt_backup <= led_cnt;
+                    led_cnt <= 0;
+                    case({led_morse, led_cnt})
                             8'b00001_010: begin
-                                value <= 5'ha;
+                                value <= 6'ha;
+                                trans <= 1;
                             end
                             8'b01000_100: begin
-                                value <= 5'hb;
+                                value <= 6'hb;
+                                trans <= 1;
                             end
                             8'b01010_100: begin
-                                value <= 5'hc;
+                                value <= 6'hc;
+                                trans <= 1;
                             end
                             8'b00100_011: begin
-                                value <= 5'hd;
+                                value <= 6'hd;
+                                trans <= 1;
                             end
                             8'b00000_001: begin
-                                value <= 5'he;
+                                value <= 6'he;
+                                trans <= 1;
                             end
                             8'b00010_100: begin
-                                value <= 5'hf;
+                                value <= 6'hf;
+                                trans <= 1;
                             end
                             8'b00110_011: begin
-                                value <= 5'h10;
+                                value <= 6'h10;
+                                trans <= 1;
                             end
                             8'b00000_100: begin
-                                value <= 5'h11;
+                                value <= 6'h11;
+                                trans <= 1;
                             end
                             8'b00000_010: begin
-                                value <= 5'h12;
+                                value <= 6'h12;
+                                trans <= 1;
                             end
                             8'b00111_100: begin
-                                value <= 5'h13;
+                                value <= 6'h13;
+                                trans <= 1;
                             end
                             8'b00101_011: begin
-                                value <= 5'h14;
+                                value <= 6'h14;
+                                trans <= 1;
                             end
                             8'b00100_100: begin
-                                value <= 5'h15;
+                                value <= 6'h15;
+                                trans <= 1;
                             end
                             8'b00011_010: begin
-                                value <= 5'h16;
+                                value <= 6'h16;
+                                trans <= 1;
                             end
                             8'b00010_010: begin
-                                value <= 5'h17;
+                                value <= 6'h17;
+                                trans <= 1;
                             end
                             8'b00111_011: begin
-                                value <= 5'h18;
+                                value <= 6'h18;
+                                trans <= 1;
                             end
                             8'b00110_100: begin
-                                value <= 5'h19;
+                                value <= 6'h19;
+                                trans <= 1;
                             end
                             8'b01101_100: begin
-                                value <= 5'h1a;
+                                value <= 6'h1a;
+                                trans <= 1;
                             end
                             8'b00010_011: begin
-                                value <= 5'h1b;
+                                value <= 6'h1b;
+                                trans <= 1;
                             end
                             8'b00000_011: begin
-                                value <= 5'h1c;
+                                value <= 6'h1c;
+                                trans <= 1;
                             end
                             8'b00001_001: begin
-                                value <= 5'h1d;
+                                value <= 6'h1d;
+                                trans <= 1;
                             end
                             8'b00001_011: begin
-                                value <= 5'h1e;
+                                value <= 6'h1e;
+                                trans <= 1;
                             end
                             8'b00001_100: begin
-                                value <= 5'h1f;
+                                value <= 6'h1f;
+                                trans <= 1;
                             end
                             8'b00011_011: begin
-                                value <= 5'h20;
+                                value <= 6'h20;
+                                trans <= 1;
                             end
                             8'b01001_100: begin
-                                value <= 5'h21;
+                                value <= 6'h21;
+                                trans <= 1;
                             end
                             8'b01011_100: begin
-                                value <= 5'h22;
+                                value <= 6'h22;
+                                trans <= 1;
                             end
                             8'b01100_100: begin
-                                value <= 5'h23;
+                                value <= 6'h23;
+                                trans <= 1;
                             end
                             8'b01111_101: begin
-                                value <= 5'h1;
+                                value <= 6'h1;
+                                trans <= 1;
                             end
                             8'b00111_101: begin
-                                value <= 5'h2;
+                                value <= 6'h2;
+                                trans <= 1;
                             end
                             8'b00011_101: begin
-                                value <= 5'h3;
+                                value <= 6'h3;
+                                trans <= 1;
                             end
                             8'b00001_101: begin
-                                value <= 5'h4;
+                                value <= 6'h4;
+                                trans <= 1;
                             end
                             8'b00000_101: begin
-                                value <= 5'h5;
+                                value <= 6'h5;
+                                trans <= 1;
                             end
                             8'b10000_101: begin
-                                value <= 5'h6;
+                                value <= 6'h6;
+                                trans <= 1;
                             end
                             8'b11000_101: begin
-                                value <= 5'h7;
+                                value <= 6'h7;
+                                trans <= 1;
                             end
                             8'b11100_101: begin
-                                value <= 5'h8;
+                                value <= 6'h8;
+                                trans <= 1;
                             end
                             8'b11110_101: begin
-                                value <= 5'h9;
+                                value <= 6'h9;
+                                trans <= 1;
                             end
                             8'b11111_101: begin
-                                value <= 5'h0;
+                                value <= 6'h0;
+                                trans <= 1;
                             end
                             default: ;//警告
-                        endcase
-                    end
+                    endcase
+                end
             end
             if(bs_lag1 & ~bs_lag2) begin
                 led_morse <= {1'b0, led_morse[4:1]};
-                if(led_cnt != 0) led_cnt <= led_cnt -1;
+                if(led_cnt != 0) led_cnt <= led_cnt - 1;
             end
+            if(trans) trans <= 0;
         end else begin
             led_morse <= 0;
             led_cnt <= 0;
+            trans <= 0;
         end
     end
-
+    de_translation de_tr(clk, rst | ~en, trans, led_morse_backup, led_cnt_backup, value, out);
 endmodule
-
-
-
-// 00001   010
-// 01000 100
-// 01010 100
-// 00100  011
-// 00000    001
-// 00010 100
-// 00110  011
-// 00000 100
-// 00000   010
-// 00111 100
-// 00101  011
-// 00100 100
-// 00011   010
-// 00010   010
-// 00111  011
-// 00110 100
-// 01101 100
-// 00010  011
-// 00000  011
-// 00001    001
-// 00001  011
-// 00001 100
-// 00011  011
-// 01001 100
-// 01011 100
-// 01100 100
-
-
-// 01111 101
-// 00111 101
-// 00011 101
-// 00001 101
-// 00000 101
-// 10000 101
-// 11000 101
-// 11100 101
-// 11110 101
-// 11111 101
-
-
-// 01     //a
-// 1000   //b
-// 1010   //c
-// 100    //d
-// 0      //e
-// 0010   //f
-// 110    //g
-// 0000   //h
-// 00     //i
-// 0111   //j
-// 101    //k
-// 0100   //l
-// 11     //m
-// 10     //n
-// 111    //o
-// 0110   //p
-// 1101   //q
-// 010    //r
-// 000    //s
-// 1      //t
-// 001    //u
-// 0001   //v
-// 011    //w
-// 1001   //x
-// 1011   //y
-// 1100   //z
-
-
-// 01111  //1
-// 00111  //2
-// 00011  //3
-// 00001  //4
-// 00000  //5
-// 10000  //6
-// 11000  //7
-// 11100  //8
-// 11110  //9
-// 11111  //0
