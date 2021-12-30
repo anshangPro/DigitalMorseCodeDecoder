@@ -2,7 +2,8 @@
 
 module encoder_basic(
     input clk,
-    input [8:0]encoder_switch,
+    input [8:0] encoder_switch,
+    input [7:0] fake_button,
     input rst,
     input [63:0] seg_out_temp,
     output reg [4:0] morse_code
@@ -36,8 +37,8 @@ module encoder_basic(
         if (rst) begin
             morse_code = 5'b10101;
         end 
-        else if (encoder_switch[0]) begin
-            if (seg_1!=8'b1111_1111) begin
+        else if (encoder_switch[0] | fake_button[0]) begin
+            
                 case(seg_1)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -52,10 +53,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[1]) begin
-            if (seg_2!=8'b1111_1111) begin
+        else if (encoder_switch[1] | fake_button[1]) begin
+            
                 case(seg_2)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -70,10 +71,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[2]) begin
-            if (seg_3!=8'b1111_1111) begin
+        else if (encoder_switch[2] | fake_button[2]) begin
+            
                 case(seg_3)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -88,10 +89,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[3]) begin
-            if (seg_4!=8'b1111_1111) begin
+        else if (encoder_switch[3] | fake_button[3]) begin
+            
                 case(seg_4)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -106,10 +107,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[4]) begin
-            if (seg_5!=8'b1111_1111) begin
+        else if (encoder_switch[4] | fake_button[4]) begin
+            
                 case(seg_5)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -124,10 +125,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[5]) begin
-            if (seg_6!=8'b1111_1111) begin
+        else if (encoder_switch[5] | fake_button[5]) begin
+            
                 case(seg_6)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -142,10 +143,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
-        else if (encoder_switch[6]) begin
-            if (seg_7!=8'b1111_1111) begin
+        else if (encoder_switch[6] | fake_button[6]) begin
+            
                 case(seg_7)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -160,10 +161,10 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+           
         end
-        else if (encoder_switch[7]) begin
-            if (seg_8!=8'b1111_1111) begin
+        else if (encoder_switch[7] | fake_button[7]) begin
+            
                 case(seg_8)//0 stands for short code and 1 stands for long code
                 8'b1111_1001:morse_code <= 5'b01111;//1
                 8'b1010_0100:morse_code <= 5'b00111;//2
@@ -178,7 +179,7 @@ module encoder_basic(
                 8'b1111_1111:morse_code <= 5'b10101;//none
                 default :morse_code <= 5'b10101;//defalut
             endcase
-            end
+            
         end
         else begin
             morse_code <= 5'b10101;
