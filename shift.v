@@ -1,49 +1,44 @@
 `timescale 1ns / 1ps
 
 module shift(
-    input clk, //backspace or flag
+    input clk,                   //backspace or flag
     input rst,
-    input flag,
+    input flag_button,
     input bs_button,
-    input direction, //0 for flag , 1 for backspace
+    input direction,             //0 for flag , 1 for backspace
     input [3:0] in,
     output reg [63:0] out
-);
-    reg bs_lag1, bs_lag2;
-    reg flag_lag1, flag_lag2;
+    );
 
-    always @ (posedge clk) begin
-        bs_lag1  <= bs_button;
-        flag_lag1 <= flag;
-        bs_lag2  <= bs_lag1;
-        flag_lag2 <= flag_lag1;
-    end
+    //转变输出为一个时钟周期的信号
+    exciting bs(clk, bs_button, bs_ex);
+    exciting flag(clk, flag_button, flag_ex);
 
-reg counting;
-reg [19:0] cnt;
-reg [7:0] val;
-wire [7:0] last_seg;
-assign last_seg = out[63:56];
-always @ (posedge clk, posedge rst) begin
-    if(rst) begin
-        out <= ~0;
-        cnt <= 0;
-    end
-    else if(~direction && last_seg == 8'b1111_1111) begin
-        if(flag_lag1 & ~flag_lag2) counting <= 1;
-        if(counting) begin
-            if(cnt == 1000000) begin
-                counting <= 0;
-                cnt <= 0;
-                out <= {out[55:0], val};  // 检测到按键按下就将输入载入  若解码模式 此逻辑须改为检测输入是否合法
-            end 
-            else cnt <= cnt + 1;
+    reg counting;
+    reg [19:0] cnt;
+    reg [7:0] val;
+    wire [7:0] last_seg;
+    assign last_seg = out[63:56];
+    always @ (posedge clk, posedge rst) begin
+        if(rst) begin
+            out <= ~0;
+            cnt <= 0;
         end
-    end 
-    else begin 
-        if(bs_lag1 & ~bs_lag2)out <= {8'b1111_1111, out[63:8]};
-        else out <= out;
-    end
+        else if(~direction && last_seg == 8'b1111_1111) begin //未满八位
+            if(flag_ex) counting <= 1;
+            if(counting) begin
+                if(cnt == 1000000) begin
+                    counting <= 0;
+                    cnt <= 0;
+                    out <= {out[55:0], val};  // 检测到按键按下就将输入载入
+                end 
+                else cnt <= cnt + 1;
+            end
+        end 
+        else begin 
+            if (bs_ex)out <= {8'b1111_1111, out[63:8]};//退格
+            else out <= out;
+        end
         case(in)
             4'h0: val=8'b1100_0000;  // 0
             4'h1: val=8'b1111_1001;  // 1
@@ -62,6 +57,6 @@ always @ (posedge clk, posedge rst) begin
             4'hE: val=8'b1000_0110;  // E
             4'hF: val=8'b1000_1110;  // F
         endcase
-end
+    end
 
 endmodule
