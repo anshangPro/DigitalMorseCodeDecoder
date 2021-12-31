@@ -11,7 +11,7 @@ module decoder_controller(
     output reg [2:0] led_cnt,
     output [63:0] out
     );
-    // 初定 5位表示正常的摩斯�? 3位表示当前输入位�? 输入从右往左入 
+    // 5位表示正常的摩斯码 3位表示当前输入位数 输入从右往左入
     reg bs_lag1, bs_lag2;
     reg flag_lag1, flag_lag2;
 
@@ -21,7 +21,7 @@ module decoder_controller(
         bs_lag2  <= bs_lag1;
         flag_lag2 <= flag_lag1;
     end
-    //左长�?* 右短�?#  d为回�? 确认�?
+    //左长键* 右短键#  d为回车键 确认
     //reg [4:0] value;
     reg [5:0] value;////////////////////////////???????????????????????????????
 
@@ -34,7 +34,7 @@ module decoder_controller(
     assign tooLong = 64'b10000111_10100011_10100011_11111111_11000111_10100011_10101011_11000010;
     wire [63:0] failed; // 10
     assign failed = 64'b11111111_10001110_10001000_11110000_11000111_10000110_10000110_11111111;
-    wire [63:0] enough;// 11七段数码显示管超�?8�?
+    wire [63:0] enough;// 11七段数码显示管超长警告
     assign enough = 64'b11111111_10000110_10101011_10100011_11000001_11000010_10001001_11111111;
     reg [2:0] warning;
 
@@ -62,7 +62,7 @@ module decoder_controller(
                     end
                 end
                 else begin
-                    //输入太长的警�?
+                    //输入太长的警告
                     if(key == 4'he | key == 4'hf) begin
                         warning <= 01;
                     end
