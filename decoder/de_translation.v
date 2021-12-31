@@ -6,7 +6,6 @@ module de_translation(
     input trans,
     input [4:0] led_morse,
     input [2:0] led_cnt,
-    input [5:0] value,//////////////////////////////////////////????????????
     output reg [63:0] out
     );
       
